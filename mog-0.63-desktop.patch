@@ -1,0 +1,14 @@
+diff -urN mog-0.63.1548/build/linux/mog.desktop mog-0.63.1548-patched/build/linux/mog.desktop
+--- mog-0.63.1548/build/linux/mog.desktop	2008-09-14 06:31:37.000000000 +1100
++++ mog-0.63.1548-patched/build/linux/mog.desktop	2011-11-21 01:40:45.734394540 +1100
+@@ -3,8 +3,8 @@
+ Name=Maze of Galious
+ Comment=Remake of a classic MSX platformer
+ Exec=mog
+-Icon=mog.png
++Icon=mog
+ Terminal=false
+ Type=Application
+-Categories=Application;Game;ArcadeGame;
++Categories=Game;ArcadeGame;
+ StartupNotify=false

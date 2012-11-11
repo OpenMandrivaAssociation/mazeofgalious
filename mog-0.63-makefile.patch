@@ -1,0 +1,52 @@
+diff -urN mog-0.63.1548/build/linux/Makefile mog-0.63.1548-patched/build/linux/Makefile
+--- mog-0.63.1548/build/linux/Makefile	2009-03-13 23:20:17.000000000 +1000
++++ mog-0.63.1548-patched/build/linux/Makefile	2011-11-21 01:46:45.441394759 +1100
+@@ -5,7 +5,7 @@
+ 
+ GAMEDIR = $(PREFIX)/games
+ STARTUP = $(GAMEDIR)/$(EXE)
+-BINDIR = $(PREFIX)/share/games/$(EXE)
++DATADIR = $(PREFIX)/share/games/mog/
+ ICNDIR = $(PREFIX)/share/pixmaps
+ APPDIR = $(PREFIX)/share/applications
+ 
+@@ -51,28 +51,17 @@
+ 	@$(RM) $(SRC)/*.o $(SRC)/*.bak core $(EXE)
+ 
+ install: all
+-	@$(ECHO) " o Creating install directory $(BINDIR)"
+-	@$(MD) "$(BINDIR)"
+-	@$(ECHO) " o Installing game and data to $(BINDIR)"
+-	@$(CP) "$(EXE)" $(DATA) "$(BINDIR)"
+-	@$(ECHO) " o Creating startup script $(STARTUP)"
+-	@$(MD) "$(GAMEDIR)"
+-	@$(ECHO) "#!/bin/sh" >"$(STARTUP)"
+-	@$(ECHO) "cd \"$(BINDIR)\" && ./$(EXE); cd -" >>"$(STARTUP)"
+-	@$(CHMOD) 755 "$(STARTUP)"
++	@$(ECHO) " o Creating install directory $(DESTDIR)$(DATADIR)"
++	@$(MD) "$(DESTDIR)$(DATADIR)"
++	@$(ECHO) " o Installing data to $(DESTDIR)$(DATADIR)"
++	@$(CP) $(DATA) "$(DESTDIR)$(DATADIR)"
++	@$(ECHO) " o Creating game executable $(DESTDIR)$(STARTUP)"
++	@$(MD) "$(DESTDIR)$(GAMEDIR)"
++	@$(CP) $(EXE) "$(DESTDIR)$(GAMEDIR)"
+ 	@$(ECHO) " o Creating application menu entry"
+-	@$(MD) "$(ICNDIR)"
+-	@$(CP) "$(EXTRADIR)/$(ICON)" "$(ICNDIR)"
+-	@$(MD) "$(APPDIR)"
+-	@$(CP) "$(EXTRADIR)/$(DESKTOP)" "$(APPDIR)"
+-	@$(ECHO) ""
+-
+-uninstall:
+-	@$(ECHO) " o Removing game and data from $(BINDIR)"
+-	@$(RM) -r "$(BINDIR)"
+-	@$(ECHO) " o Removing startup script $(STARTUP)"
+-	@$(RM) "$(STARTUP)"
+-	@$(ECHO) " o Removing application menu entry"
+-	@$(RM) "$(ICNDIR)/$(ICON)" "$(APPDIR)/$(DESKTOP)"
++	@$(MD) "$(DESTDIR)$(ICNDIR)"
++	@$(CP) "$(EXTRADIR)/$(ICON)" "$(DESTDIR)$(ICNDIR)"
++	@$(MD) "$(DESTDIR)$(APPDIR)"
++	@$(CP) "$(EXTRADIR)/$(DESKTOP)" "$(DESTDIR)$(APPDIR)"
+ 	@$(ECHO) ""
+ 
