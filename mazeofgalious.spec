@@ -76,3 +76,10 @@ rm -rf %{buildroot}
 %{_datadir}/applications/%{oname}.desktop
 %{_datadir}/pixmaps/%{oname}.png
 
+
+
+%changelog
+* Sun Nov 20 2011 Andrey Bondrov <abondrov@mandriva.org> 0.63-1mdv2011.0
++ Revision: 732040
+- imported package mazeofgalious
+
