@@ -1,25 +1,26 @@
-%define	oname	mog
-%define	rev	1548
+%define oname mog
+%define rev 1548
 
 Summary:	A side-view, flick-screen platform game
 Name:		mazeofgalious
 Version:	0.63
-Release:	%mkrel 1
-License:	GPLv2
+Release:	2
+License:	GPLv2+
 Group:		Games/Arcade
-URL:		http://www.braingames.getput.com/mog/
+Url:		http://www.braingames.getput.com/mog/
 Source0:	%{oname}-%{version}.%{rev}.tar.bz2
 Source1:	thegnu.pcx
 Patch0:		mog-0.63-makefile.patch
 Patch1:		mog-0.63-datapath.patch
 Patch2:		mog-0.63-desktop.patch
+Patch3:		mog-0.63-makefile2.patch
+Patch4:		mog-0.63-sfmt.patch
 BuildRequires:	imagemagick
-BuildRequires:	SDL-devel
 BuildRequires:	SDL_sound-devel
-BuildRequires:	SDL_mixer-devel
-BuildRequires:	SDL_image-devel
-BuildRoot:	%{_tmppath}/%{oname}-%{version}-%{release}-buildroot
-Provides:	%{oname} = %{version}-%{release}
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(SDL_image)
+BuildRequires:	pkgconfig(SDL_mixer)
+Provides:	%{oname} = %{EVRD}
 
 %description
 The Maze of Galious (MoG in short) was originally a Konami game for the MSX
@@ -41,45 +42,38 @@ each world as often as you want in order to see if you have missed something.
 
 To defeat all 10 demons you control two characters: Popolon and Aphrodite.
 Each one has special abilities, i.e. Popolon has a greater ability to jump
-and Aphrodite is able to dive. 
-
-%prep
-%setup -q -n %{oname}-%{version}.%{rev}
-%patch0 -p1 -b .makefile
-%patch1 -p1 -b .datapath
-%patch2 -p1 -b .desktop
-
-%build
-%make
-
-%install
-rm -rf %{buildroot}
-%makeinstall_std
-
-# replace Konami logo with GNU
-rm -f %{buildroot}%{_gamesdatadir}/%{oname}/graphics/*/konami.pcx
-%__cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/alfonso/
-%__cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/alternate/
-%__cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/boltian/
-%__cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/hinox/
-%__cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/naramura/
-%__cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/original/
-
-%clean
-rm -rf %{buildroot}
+and Aphrodite is able to dive.
 
 %files
-%defattr(-,root,root)
 %doc LICENSE *.txt
 %{_gamesbindir}/%{oname}
 %{_gamesdatadir}/%{oname}
 %{_datadir}/applications/%{oname}.desktop
 %{_datadir}/pixmaps/%{oname}.png
 
+#----------------------------------------------------------------------------
 
+%prep
+%setup -q -n %{oname}-%{version}.%{rev}
+%patch0 -p1 -b .makefile
+%patch1 -p1 -b .datapath
+%patch2 -p1 -b .desktop
+%patch3 -p1 -b .makefile
+%patch4 -p1 -b .sfmt
 
-%changelog
-* Sun Nov 20 2011 Andrey Bondrov <abondrov@mandriva.org> 0.63-1mdv2011.0
-+ Revision: 732040
-- imported package mazeofgalious
+%build
+%make OPTFLAGS="%{optflags}" LFLAGS="%{ldflags}"
+
+%install
+%makeinstall_std
+
+# replace Konami logo with GNU
+rm -f %{buildroot}%{_gamesdatadir}/%{oname}/graphics/*/konami.pcx
+cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/alfonso/
+cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/alternate/
+cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/boltian/
+cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/hinox/
+cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/naramura/
+cp %{SOURCE1} %{buildroot}%{_gamesdatadir}/%{oname}/graphics/original/
+
 
