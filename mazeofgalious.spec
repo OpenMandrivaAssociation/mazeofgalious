@@ -4,7 +4,7 @@
 Summary:	A side-view, flick-screen platform game
 Name:		mazeofgalious
 Version:	0.63
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Games/Arcade
 Url:		http://www.braingames.getput.com/mog/
