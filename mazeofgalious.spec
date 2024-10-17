@@ -7,7 +7,7 @@ Version:	0.63
 Release:	3
 License:	GPLv2+
 Group:		Games/Arcade
-Url:		http://www.braingames.getput.com/mog/
+Url:		https://www.braingames.getput.com/mog/
 Source0:	%{oname}-%{version}.%{rev}.tar.bz2
 Source1:	thegnu.pcx
 Patch0:		mog-0.63-makefile.patch
