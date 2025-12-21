@@ -15,6 +15,7 @@ Patch1:		mog-0.63-datapath.patch
 Patch2:		mog-0.63-desktop.patch
 Patch3:		mog-0.63-makefile2.patch
 Patch4:		mog-0.63-sfmt.patch
+BuildRequires:	make
 BuildRequires:	imagemagick
 BuildRequires:	SDL_sound-devel
 BuildRequires:	pkgconfig(sdl)
